@@ -1,5 +1,6 @@
 SOLİD PRENSİPLERİ 
-1-) Single Responsibility (Tek Sorumluluk Prensibi): Her sınıf veya modülün yalnızca bir görevi olmalıdır. Bu, kodun daha okunabilir, daha sürdürülebilir ve daha esnek olmasını sağlar.
+1-) Single Responsibility (Tek Sorumluluk Prensibi): Her sınıf veya modülün yalnızca bir görevi olmalıdır. Bu, kodun daha okunabilir, 
+daha sürdürülebilir ve daha esnek olmasını sağlar.
 -Uygulanmamış Hali
 
 class KullaniciIslemleri:
@@ -11,7 +12,8 @@ class KullaniciIslemleri:
         # Kullanıcıyı oturum aç
         pass
 
-Yukarıdaki kodda, KullaniciIslemleri adlı sınıf hem kullanıcı bilgilerini kaydetme (bilgileri_kaydet metodu) hem de oturum açma (oturum_ac metodu) işlemlerini gerçekleştiriyor. 
+Yukarıdaki kodda, KullaniciIslemleri adlı sınıf hem kullanıcı bilgilerini kaydetme (bilgileri_kaydet metodu) hem de oturum açma
+(oturum_ac metodu) işlemlerini gerçekleştiriyor. 
 Bu durum Tek Sorumluluk Prensibi'ne aykırıdır
 -Uygulanmış Hali
 
@@ -24,10 +26,12 @@ class Oturum:
     def ac(self, kullanici_adı, sifre):
         # Kullanıcıyı oturum aç
         pass
-Yukarıdaki kodda, KullaniciBilgileri sınıfı yalnızca kullanıcı bilgilerini kaydetme işlevini gerçekleştirirken, Oturum sınıfı yalnızca oturum açma işlevini gerçekleştiriyor.
+Yukarıdaki kodda, KullaniciBilgileri sınıfı yalnızca kullanıcı bilgilerini kaydetme işlevini gerçekleştirirken, Oturum sınıfı 
+yalnızca oturum açma işlevini gerçekleştiriyor.
 Her sınıfın tek bir sorumluluğu vardır ve bu da Tek Sorumluluk Prensibi'ne uygun bir tasarım sağlar.
 
-2-) Open/Closed Principle (Açık Kapalı Prensibi): Yazılım varlıkları (sınıflar, modüller, fonksiyonlar vb.), genişlemeye açık ancak değişikliğe kapalı olmalıdır. Yani mevcut kodu değiştirmeden yeni işlevsellik eklemek mümkün olmalıdır.
+2-) Open/Closed Principle (Açık Kapalı Prensibi): Yazılım varlıkları (sınıflar, modüller, fonksiyonlar vb.), genişlemeye açık 
+ancak değişikliğe kapalı olmalıdır. Yani mevcut kodu değiştirmeden yeni işlevsellik eklemek mümkün olmalıdır.
 
 class Odeme:
     def yap(self, miktar):
@@ -49,12 +53,15 @@ kredi_karti.yap(100)  # 100 TL'lik alışveriş kredi kartı ile ödendi
 havale.yap(150)       # 150 TL'lik alışveriş havale ile ödendi
 
 
-Bu örnekte, Odeme adında bir soyut bir sınıf tanımladık ve bu sınıftan türetilen KrediKarti ve Havale sınıfları oluşturduk. Her iki sınıf da ödeme işlemini temsil eden yap yöntemini uygular.
+Bu örnekte, Odeme adında bir soyut bir sınıf tanımladık ve bu sınıftan türetilen KrediKarti ve Havale sınıfları oluşturduk. 
+Her iki sınıf da ödeme işlemini temsil eden yap yöntemini uygular.
 
-KrediKarti ve Havale sınıflarını oluşturduktan sonra, her birinin yap yöntemini çağırarak ödeme işlemlerini gerçekleştirdik. Bu sayede her bir ödeme yöntemi farklı bir şekilde işlendiğinden, Açık Kapalı Prensibi'ne uygun bir tasarım elde ettik.
+KrediKarti ve Havale sınıflarını oluşturduktan sonra, her birinin yap yöntemini çağırarak ödeme işlemlerini gerçekleştirdik.
+Bu sayede her bir ödeme yöntemi farklı bir şekilde işlendiğinden, Açık Kapalı Prensibi'ne uygun bir tasarım elde ettik.
 
 
-3-) Liskov Substitution Principle (Liskov Yerine Koyma Prensibi): Bir üst sınıfın (üst tür) nesneleri, alt sınıfların (alt türler) nesneleriyle yer değiştirilebilir olmalıdır. Bu, kodun düzgün çalışmasını ve beklenmedik davranışlardan kaçınmayı sağlar.
+3-) Liskov Substitution Principle (Liskov Yerine Koyma Prensibi): Bir üst sınıfın (üst tür) nesneleri, alt sınıfların 
+(alt türler) nesneleriyle yer değiştirilebilir olmalıdır. Bu, kodun düzgün çalışmasını ve beklenmedik davranışlardan kaçınmayı sağlar.
 
 class Sekil:
     def alan_hesapla(self):
@@ -82,12 +89,15 @@ kare = Kare(3)
 print("Dikdörtgenin Alanı:", dikdortgen.alan_hesapla()) 
 print("Karenin Alanı:", kare.alan_hesapla()) 
 
-Bu örnekte, "Sekil" sınıfı üst sınıfı temsil ederken, "Dikdortgen" ve "Kare" sınıfları bu üst sınıfın yerine geçebilir. Her iki alt sınıf da "alan_hesapla" metodunu uygulayarak üst sınıfın davranışını korur. 
+Bu örnekte, "Sekil" sınıfı üst sınıfı temsil ederken, "Dikdortgen" ve "Kare" sınıfları bu üst sınıfın yerine geçebilir. 
+Her iki alt sınıf da "alan_hesapla" metodunu uygulayarak üst sınıfın davranışını korur. 
 Bu, Liskov Yerine Koyma Prensibi'ne uygun bir tasarımdır.
 
-4-) Interface Segregation Principle (Arayüz Ayırma Prensibi): Bir sınıfın, ihtiyaç duymadığı yöntemleri içermemesi gerekmektedir. Bu, sınıflar arasındaki sıkı bağımlılığı azaltır ve daha esnek kod yazmayı sağlar.
+4-) Interface Segregation Principle (Arayüz Ayırma Prensibi): Bir sınıfın, ihtiyaç duymadığı yöntemleri içermemesi
+gerekmektedir. Bu, sınıflar arasındaki sıkı bağımlılığı azaltır ve daha esnek kod yazmayı sağlar.
 
-Arayüz Ayırma Prensibi, bir sınıfın, ihtiyaç duymadığı yöntemleri içermemesi gerektiğini belirtir. Bu prensip, bir sınıfın sadece kullandığı yöntemlere odaklanmasını ve gereksiz karmaşıklığı önlemesini sağlar.
+Arayüz Ayırma Prensibi, bir sınıfın, ihtiyaç duymadığı yöntemleri içermemesi gerektiğini belirtir. Bu prensip, bir
+sınıfın sadece kullandığı yöntemlere odaklanmasını ve gereksiz karmaşıklığı önlemesini sağlar.
 
 -Uygulanmış Hali
 
@@ -150,7 +160,8 @@ for araba in arabalar:
     araba.hareket_et()
 
 Bu örnekte, alt sınıflar (Tesla ve BMW) üst sınıfın (Araba) metotlarını ezerek kendi özelliklerini uyguluyorlar. 
-Bu durumda, alt sınıflar üst sınıfların yerine kullanıldığında beklenmeyen davranışlar ortaya çıkabilir, bu da Liskov Yerine Koyma Prensibi'ne aykırıdır.
+Bu durumda, alt sınıflar üst sınıfların yerine kullanıldığında beklenmeyen davranışlar ortaya çıkabilir, bu da 
+Liskov Yerine Koyma Prensibi'ne aykırıdır.
 
 -Uygulanmış Hali
 
@@ -188,11 +199,15 @@ for araba in [Tesla("Tesla Model S"), BMW("BMW 3 Serisi")]:
     araba.motoru_calistir()
     araba.hareket_et()
 
-    Bu kodda, Tesla ve BMW sınıfları, Araba sınıfından türetilmiş ve kendi özelliklerini eklemişlerdir. Her iki alt sınıf da üst sınıfın metotlarını kullanmış, böylece Liskov Yerine Koyma Prensibi'ne uygun bir tasarım elde edilmiştir.
+    Bu kodda, Tesla ve BMW sınıfları, Araba sınıfından türetilmiş ve kendi özelliklerini eklemişlerdir.
+    Her iki alt sınıf da üst sınıfın metotlarını kullanmış, böylece Liskov Yerine Koyma Prensibi'ne uygun bir tasarım elde edilmiştir.
 
-5-) Dependency Inversion Principle (Bağımlılıkları Ters Çevirme Prensibi): Yüksek seviyeli modüller, düşük seviyeli modüllere bağımlı olmamalıdır. Her iki seviye de soyutlamalara (interfacelere) bağımlı olmalıdır. Bu, kodun daha modüler, esnek ve yeniden kullanılabilir olmasını sağlar.
+5-) Dependency Inversion Principle (Bağımlılıkları Ters Çevirme Prensibi): Yüksek seviyeli modüller, 
+düşük seviyeli modüllere bağımlı olmamalıdır. Her iki seviye de soyutlamalara (interfacelere) bağımlı olmalıdır. 
+Bu, kodun daha modüler, esnek ve yeniden kullanılabilir olmasını sağlar.
 
-Bağımlılıkları Ters Çevirme Prensibi, üst seviye modüllerin alt seviye modüllere bağlı olmamasını, her ikisinin de soyutlamalara (interface'lere) bağlı olması gerektiğini söyler. 
+Bağımlılıkları Ters Çevirme Prensibi, üst seviye modüllerin alt seviye modüllere bağlı olmamasını,
+her ikisinin de soyutlamalara (interface'lere) bağlı olması gerektiğini söyler. 
 
 -Uygulanmış Hali
 
@@ -255,4 +270,6 @@ anahtar.ac_kapı(kapi)
 anahtar.yak_lamba(lamba)
 
 
-Bu örnekte, Anahtar sınıfı, Kapi ve Lamba sınıflarına doğrudan bağlıdır. Yani, Anahtar sınıfı Kapi ve Lamba sınıflarını doğrudan çağırır ve onları kontrol eder. Bu durumda, üst seviye modül olan Anahtar alt seviye modüllere (Kapi ve Lamba) bağımlı hale gelir ve Bağımlılıkları Ters Çevirme Prensibi'ne uymaz.
+Bu örnekte, Anahtar sınıfı, Kapi ve Lamba sınıflarına doğrudan bağlıdır. Yani, Anahtar sınıfı Kapi ve Lamba 
+sınıflarını doğrudan çağırır ve onları kontrol eder. Bu durumda, üst seviye modül olan Anahtar alt seviye 
+modüllere (Kapi ve Lamba) bağımlı hale gelir ve Bağımlılıkları Ters Çevirme Prensibi'ne uymaz.
