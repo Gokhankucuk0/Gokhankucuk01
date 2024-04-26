@@ -60,8 +60,8 @@ KrediKarti ve Havale sınıflarını oluşturduktan sonra, her birinin yap yönt
 Bu sayede her bir ödeme yöntemi farklı bir şekilde işlendiğinden, Açık Kapalı Prensibi'ne uygun bir tasarım elde ettik.
 
 
-3-) Liskov Substitution Principle (Liskov Yerine Koyma Prensibi): Bir üst sınıfın (üst tür) nesneleri, alt sınıfların 
-(alt türler) nesneleriyle yer değiştirilebilir olmalıdır. Bu, kodun düzgün çalışmasını ve beklenmedik davranışlardan kaçınmayı sağlar.
+3-) Liskov Substitution Principle (Liskov Yerine Koyma Prensibi): Bir üst sınıfın  nesneleri, alt sınıfların 
+ nesneleriyle yer değiştirilebilir olmalıdır. Bu, kodun düzgün çalışmasını ve beklenmedik davranışlardan kaçınmayı sağlar.
 
 class Sekil:
     def alan_hesapla(self):
@@ -82,12 +82,6 @@ class Kare(Sekil):
     def alan_hesapla(self):
         return self.kenar_uzunlugu ** 2
 
-# Kullanımı görelim:
-dikdortgen = Dikdortgen(5, 4)
-kare = Kare(3)
-
-print("Dikdörtgenin Alanı:", dikdortgen.alan_hesapla()) 
-print("Karenin Alanı:", kare.alan_hesapla()) 
 
 Bu örnekte, "Sekil" sınıfı üst sınıfı temsil ederken, "Dikdortgen" ve "Kare" sınıfları bu üst sınıfın yerine geçebilir. 
 Her iki alt sınıf da "alan_hesapla" metodunu uygulayarak üst sınıfın davranışını korur. 
@@ -100,8 +94,6 @@ Arayüz Ayırma Prensibi, bir sınıfın, ihtiyaç duymadığı yöntemleri içe
 sınıfın sadece kullandığı yöntemlere odaklanmasını ve gereksiz karmaşıklığı önlemesini sağlar.
 
 -Uygulanmış Hali
-
-from abc import ABC, abstractmethod
 
 class Araba(ABC):
     def __init__(self, marka):
@@ -143,61 +135,22 @@ class Tesla(Araba):
     def motoru_calistir(self):
         print(f"{self.marka} motoru çalıştı: Elektrikli motor çalıştı.")
 
-    def hareket_et(self):
+    def gaza_bas(self):
         print(f"{self.marka} hareket ediyor: Elektrikli motor çalıştı.")
 
 class BMW(Araba):
     def motoru_calistir(self):
         print(f"{self.marka} motoru çalıştı: Benzinli motor çalıştı.")
 
-    def hareket_et(self):
+    def gaza_bas(self):
         print(f"{self.marka} hareket ediyor: Benzinli motor çalıştı.")
 
 arabalar = [Tesla("Tesla Model S"), BMW("BMW 3 Serisi")]
-
-for araba in arabalar:
-    araba.motoru_calistir()
-    araba.hareket_et()
 
 Bu örnekte, alt sınıflar (Tesla ve BMW) üst sınıfın (Araba) metotlarını ezerek kendi özelliklerini uyguluyorlar. 
 Bu durumda, alt sınıflar üst sınıfların yerine kullanıldığında beklenmeyen davranışlar ortaya çıkabilir, bu da 
 Liskov Yerine Koyma Prensibi'ne aykırıdır.
 
--Uygulanmış Hali
-
-class Araba:
-    def __init__(self, marka):
-        self.marka = marka
-
-    def motoru_calistir(self):
-        print("Motor çalıştı.")
-
-    def hareket_et(self):
-        print("Araba hareket ediyor.")
-
-class Tesla(Araba):
-    def __init__(self, marka):
-        super().__init__(marka)
-
-    def motoru_calistir(self):
-        print(f"{self.marka} motoru çalıştı: Elektrikli motor çalıştı.")
-
-    def hareket_et(self):
-        print(f"{self.marka} hareket etti: Elektrikli motorla.")
-
-class BMW(Araba):
-    def __init__(self, marka):
-        super().__init__(marka)
-
-    def motoru_calistir(self):
-        print(f"{self.marka} motoru çalıştı: Benzinli motor çalıştı.")
-
-    def hareket_et(self):
-        print(f"{self.marka} hareket etti: Benzinli motorla.")
-
-for araba in [Tesla("Tesla Model S"), BMW("BMW 3 Serisi")]:
-    araba.motoru_calistir()
-    araba.hareket_et()
 
     Bu kodda, Tesla ve BMW sınıfları, Araba sınıfından türetilmiş ve kendi özelliklerini eklemişlerdir.
     Her iki alt sınıf da üst sınıfın metotlarını kullanmış, böylece Liskov Yerine Koyma Prensibi'ne uygun bir tasarım elde edilmiştir.
@@ -261,14 +214,6 @@ class Anahtar:
     def yak_lamba(self, lamba):
         print("Anahtar çalıştırıldı: Lamba yandı.")
         lamba.yak()
-
-anahtar = Anahtar()
-kapi = Kapi()
-lamba = Lamba()
-
-anahtar.ac_kapı(kapi)
-anahtar.yak_lamba(lamba)
-
 
 Bu örnekte, Anahtar sınıfı, Kapi ve Lamba sınıflarına doğrudan bağlıdır. Yani, Anahtar sınıfı Kapi ve Lamba 
 sınıflarını doğrudan çağırır ve onları kontrol eder. Bu durumda, üst seviye modül olan Anahtar alt seviye 
