@@ -1,8 +1,10 @@
-SOLİD PRENSİPLERİ 
-1-) Single Responsibility (Tek Sorumluluk Prensibi): Her sınıf veya modülün yalnızca bir görevi olmalıdır. Bu, kodun daha okunabilir, 
+# SOLİD PRENSİPLERİ 
+
+## 1-) Single Responsibility (Tek Sorumluluk Prensibi): Her sınıf veya modülün yalnızca bir görevi olmalıdır. Bu, kodun daha okunabilir, 
 daha sürdürülebilir ve daha esnek olmasını sağlar.
 -Uygulanmamış Hali
 
+```python
 class KullaniciIslemleri:
     def bilgileri_kaydet(self, kullanici_adı, sifre, e_posta):
         # Kullanıcı bilgilerini veritabanına kaydet
@@ -11,10 +13,13 @@ class KullaniciIslemleri:
     def oturum_ac(self, kullanici_adı, sifre):
         # Kullanıcıyı oturum aç
         pass
+```
 
 Yukarıdaki kodda, KullaniciIslemleri adlı sınıf hem kullanıcı bilgilerini kaydetme (bilgileri_kaydet metodu) hem de oturum açma
 (oturum_ac metodu) işlemlerini gerçekleştiriyor. 
 Bu durum Tek Sorumluluk Prensibi'ne aykırıdır
+
+```python
 -Uygulanmış Hali
 
 class KullaniciBilgileri:
@@ -26,13 +31,15 @@ class Oturum:
     def ac(self, kullanici_adı, sifre):
         # Kullanıcıyı oturum aç
         pass
+```
 Yukarıdaki kodda, KullaniciBilgileri sınıfı yalnızca kullanıcı bilgilerini kaydetme işlevini gerçekleştirirken, Oturum sınıfı 
 yalnızca oturum açma işlevini gerçekleştiriyor.
 Her sınıfın tek bir sorumluluğu vardır ve bu da Tek Sorumluluk Prensibi'ne uygun bir tasarım sağlar.
 
-2-) Open/Closed Principle (Açık Kapalı Prensibi): Yazılım varlıkları (sınıflar, modüller, fonksiyonlar vb.), genişlemeye açık 
+## 2-) Open/Closed Principle (Açık Kapalı Prensibi): Yazılım varlıkları (sınıflar, modüller, fonksiyonlar vb.), genişlemeye açık 
 ancak değişikliğe kapalı olmalıdır. Yani mevcut kodu değiştirmeden yeni işlevsellik eklemek mümkün olmalıdır.
 
+```python
 class Odeme:
     def yap(self, miktar):
         pass
@@ -51,7 +58,7 @@ havale = Havale()
 
 kredi_karti.yap(100)  # 100 TL'lik alışveriş kredi kartı ile ödendi
 havale.yap(150)       # 150 TL'lik alışveriş havale ile ödendi
-
+```
 
 Bu örnekte, Odeme adında bir soyut bir sınıf tanımladık ve bu sınıftan türetilen KrediKarti ve Havale sınıfları oluşturduk. 
 Her iki sınıf da ödeme işlemini temsil eden yap yöntemini uygular.
@@ -60,9 +67,10 @@ KrediKarti ve Havale sınıflarını oluşturduktan sonra, her birinin yap yönt
 Bu sayede her bir ödeme yöntemi farklı bir şekilde işlendiğinden, Açık Kapalı Prensibi'ne uygun bir tasarım elde ettik.
 
 
-3-) Liskov Substitution Principle (Liskov Yerine Koyma Prensibi): Bir üst sınıfın  nesneleri, alt sınıfların 
+## 3-) Liskov Substitution Principle (Liskov Yerine Koyma Prensibi): Bir üst sınıfın  nesneleri, alt sınıfların 
  nesneleriyle yer değiştirilebilir olmalıdır. Bu, kodun düzgün çalışmasını ve beklenmedik davranışlardan kaçınmayı sağlar.
 
+```python
 class Sekil:
     def alan_hesapla(self):
         pass
@@ -81,20 +89,21 @@ class Kare(Sekil):
     
     def alan_hesapla(self):
         return self.kenar_uzunlugu ** 2
-
+```
 
 Bu örnekte, "Sekil" sınıfı üst sınıfı temsil ederken, "Dikdortgen" ve "Kare" sınıfları bu üst sınıfın yerine geçebilir. 
 Her iki alt sınıf da "alan_hesapla" metodunu uygulayarak üst sınıfın davranışını korur. 
 Bu, Liskov Yerine Koyma Prensibi'ne uygun bir tasarımdır.
 
-4-) Interface Segregation Principle (Arayüz Ayırma Prensibi): Bir sınıfın, ihtiyaç duymadığı yöntemleri içermemesi
+## 4-) Interface Segregation Principle (Arayüz Ayırma Prensibi): Bir sınıfın, ihtiyaç duymadığı yöntemleri içermemesi
 gerekmektedir. Bu, sınıflar arasındaki sıkı bağımlılığı azaltır ve daha esnek kod yazmayı sağlar.
 
 Arayüz Ayırma Prensibi, bir sınıfın, ihtiyaç duymadığı yöntemleri içermemesi gerektiğini belirtir. Bu prensip, bir
 sınıfın sadece kullandığı yöntemlere odaklanmasını ve gereksiz karmaşıklığı önlemesini sağlar.
 
--Uygulanmış Hali
+#### Uygulanmış Hali
 
+```python
 class Araba(ABC):
     def __init__(self, marka):
         self.marka = marka
@@ -115,12 +124,14 @@ arabalar = [Tesla("Tesla Model S"), BMW("BMW 3 Serisi")]
 
 for araba in arabalar:
     araba.hareket_et()
+```
     
 Bu düzenlemeyle, alt sınıflar (Tesla ve BMW) üst sınıfın (Araba) hareket etme metodu olan hareket_et metodunu uygularlar.
 Bu şekilde, Liskov Yerine Koyma Prensibi'ne uygun bir tasarım elde edilir.
 
--Uygulanmamış Hali
+#### Uygulanmamış Hali
 
+```python
 class Araba:
     def __init__(self, marka):
         self.marka = marka
@@ -146,6 +157,7 @@ class BMW(Araba):
         print(f"{self.marka} hareket ediyor: Benzinli motor çalıştı.")
 
 arabalar = [Tesla("Tesla Model S"), BMW("BMW 3 Serisi")]
+```
 
 Bu örnekte, alt sınıflar (Tesla ve BMW) üst sınıfın (Araba) metotlarını ezerek kendi özelliklerini uyguluyorlar. 
 Bu durumda, alt sınıflar üst sınıfların yerine kullanıldığında beklenmeyen davranışlar ortaya çıkabilir, bu da 
@@ -155,15 +167,16 @@ Liskov Yerine Koyma Prensibi'ne aykırıdır.
     Bu kodda, Tesla ve BMW sınıfları, Araba sınıfından türetilmiş ve kendi özelliklerini eklemişlerdir.
     Her iki alt sınıf da üst sınıfın metotlarını kullanmış, böylece Liskov Yerine Koyma Prensibi'ne uygun bir tasarım elde edilmiştir.
 
-5-) Dependency Inversion Principle (Bağımlılıkları Ters Çevirme Prensibi): Yüksek seviyeli modüller, 
+## 5-) Dependency Inversion Principle (Bağımlılıkları Ters Çevirme Prensibi): Yüksek seviyeli modüller, 
 düşük seviyeli modüllere bağımlı olmamalıdır. Her iki seviye de soyutlamalara (interfacelere) bağımlı olmalıdır. 
 Bu, kodun daha modüler, esnek ve yeniden kullanılabilir olmasını sağlar.
 
 Bağımlılıkları Ters Çevirme Prensibi, üst seviye modüllerin alt seviye modüllere bağlı olmamasını,
 her ikisinin de soyutlamalara (interface'lere) bağlı olması gerektiğini söyler. 
 
--Uygulanmış Hali
+#### Uygulanmış Hali
 
+```python
 class Eyleyici:
     def calistir(self):
         pass
@@ -192,9 +205,11 @@ lamba = Lamba(eyleyici)
 
 kapi.ac()   # Kapiyi acar, eylem Anahtar'a gider, Lambayi yakar
 lamba.yak() # Lambayi yakar, eylem yine Anahtar'a gider
+```
 
--Uygulanmamış Hali
+#### Uygulanmamış Hali
 
+```python
 class Kapi:
     def ac(self):
         print("Kapı açıldı.")
@@ -214,6 +229,7 @@ class Anahtar:
     def yak_lamba(self, lamba):
         print("Anahtar çalıştırıldı: Lamba yandı.")
         lamba.yak()
+```
 
 Bu örnekte, Anahtar sınıfı, Kapi ve Lamba sınıflarına doğrudan bağlıdır. Yani, Anahtar sınıfı Kapi ve Lamba 
 sınıflarını doğrudan çağırır ve onları kontrol eder. Bu durumda, üst seviye modül olan Anahtar alt seviye 
